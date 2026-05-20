@@ -11,6 +11,7 @@ export default defineConfig({
     vueDevTools(),
   ],
   server: {
+    open: true,
     port: 8080,
   },
   resolve: {
