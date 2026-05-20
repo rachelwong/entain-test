@@ -1,0 +1,19 @@
+@use '@/styles/base/variables' as *;
+
+.header {
+  width: 100%;
+  display:block;
+  background: $neds-orange;
+  padding: 1.5rem 0;
+}
+
+.header__wrapper {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+  display:block;
+}
+
+.header__wrapper__logo {
+  width: 4rem;
+}
