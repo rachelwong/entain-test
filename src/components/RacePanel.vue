@@ -1,35 +1,45 @@
 <script setup type="ts">
-import { ref, onMounted } from 'vue'
-import getRaces from '../services/getRaces';
-import Filter from '@/components/Filter.vue'
+import { watch, onMounted } from 'vue'
+// import Filter from '@/components/Filter.vue'
 import Race from '@/components/Race.vue'
-import { fromUnixTime, format } from "date-fns"
+import { useRaceStore } from '../stores/stores';
 
-const result = ref([])
+const store = useRaceStore();
+
+// const loadRaces = async () => {
+//   const raceResponse = await getRaces();
+//   result.value = Object.values(raceResponse.race_summaries)
+//     .sort(
+//       (a, b) => a.advertised_start.seconds - b.advertised_start.seconds
+//     )
+//     .map((x) => { return { ...x, display_start_time: format(fromUnixTime(x.advertised_start.seconds), 'dd-MM-yyyy  HH:mm:ss') } })
+//   // result.value.push(Object.values(raceResponse.race_summaries)
+//   //   .sort(
+//   //     (a, b) => a.advertised_start.seconds - b.advertised_start.seconds
+//   //   )
+//   //   .map((x) => { return { ...x, display_start_time: format(fromUnixTime(x.advertised_start.seconds), 'dd-MM-yyyy  HH:mm:ss') } }))
+//   console.log('raceResponse', JSON.parse(JSON.stringify(Object.values(result.value))))
+// }
+
+watch(
+  store.races,
+  (state) => { },
+  { deep: true }
+)
 
 
-const loadRaces = async () => {
-  const raceResponse = await getRaces();
-  result.value = Object.values(raceResponse.race_summaries)
-    .sort(
-      (a, b) => a.advertised_start.seconds - b.advertised_start.seconds
-    )
-    .map((x) => { return { ...x, display_start_time: format(fromUnixTime(x.advertised_start.seconds), 'dd-MM-yyyy  HH:mm:ss') } })
-  console.log('raceResponse', JSON.parse(JSON.stringify(result.value)))
-
-}
-
+// use watch and debounce to mutate state in store
 onMounted(() => {
-  console.log('HELLO')
-  loadRaces()
+  store.updateRaceData();
 })
 </script>
 
+
 <template>
   <div className="race-panel">
-    <Filter />
+    <!-- <Filter /> -->
     <ul>
-      <Race v-for="race in result" :key="race.race_id" :race="race" />
+      <Race v-for="race in store.races" :key="race.race_id" :race="race" />
     </ul>
     <!-- <p>{{Object.values(result.race_summaries)
   .sort((a, b) => a.advertised_start.seconds - b.advertised_start.seconds)
