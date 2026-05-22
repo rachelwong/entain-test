@@ -1,0 +1,27 @@
+@use '@/styles/base/variables' as *;
+
+
+.filters {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style-type: none;
+}
+
+.filter {
+  padding: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-basis: 33.3333%;
+  max-width: 33.3333%;
+  list-style-type: none;
+}
+
+.filter__button {
+  background: none;
+  width: 100%;
+}

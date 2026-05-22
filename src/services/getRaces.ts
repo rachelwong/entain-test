@@ -1,15 +1,19 @@
 import type { RacesResponse } from '@/models/RaceResponse';
-import axios from 'axios'
+import axios, { isAxiosError } from 'axios'
 
 
-const getRaces = async ({ pageCount = 10 }: { pageCount: number } ): Promise<RacesResponse | null> => {
+
+const getRaces = async (count: number = 10): Promise<RacesResponse | undefined> => {
   try {
-    const baseUrl = `https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=${pageCount}`;
+    const baseUrl = `https://api.neds.com.au/rest/v1/racing/?method=nextraces&count=${count}`;
     const { data } = await axios.get(baseUrl);
-    return data;
+    console.log('get races', data.data);
+    return data.data;
   } catch (err) {
+    if (isAxiosError(err)) {
+      throw new Error(`Error getting race data status code: ${err.code}`);
+    }
     console.error(err);
-    return null;
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header__wrapper">
-      <img :src="logo" class="header__wrapper__logo" />
+      <img :src="logo" class="header__wrapper__logo" alt="Neds racing" />
     </div>
   </div>
 </template>
