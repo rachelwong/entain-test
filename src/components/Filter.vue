@@ -1,21 +1,27 @@
 <template>
   <ul class="filters">
-    <li v-for="filter in filters" :key="filter.category_id" class="filter">
-      <input
-        type="checkbox"
-        :id="filter.category_id"
-        name="filter"
-        :checked="isSelectedFilter"
-      >
-      <label :for="filter.category_id">{{ filter.name }}</label><br>
+    <li v-for="filter in props.filters" :key="filter.category_id" class="filter">
+      <button type="button" @click="props.isChecked?.(filter.category_id)"
+        :class="props.selectedFilterIds.includes(filter.category_id) ? 'active' : ''" data-testid="filter-item">
+        {{ filter.name }}
+      </button>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { type PropType } from 'vue'
+import type RaceFilterType from '../models/RaceFilterType'
 
 const props = defineProps({
+  filters: {
+    type: Array as PropType<RaceFilterType[]>,
+    required: true,
+  },
+  isChecked: {
+    type: Function as PropType<(categoryId: string) => void>,
+    required: true,
+  },
   selectedFilterIds: {
     type: Array,
     required: true,
@@ -23,17 +29,8 @@ const props = defineProps({
   },
 })
 
-const filters = ref([
-  { name: 'Greyhound racing', category_id: '9daef0d7-bf3c-4f50-921d-8e818c60fe61' },
-  { name: 'Harness racing', category_id: '161d9be2-e909-4326-8c2c-35ed71fb460b' },
-  { name: 'Horse racing', category_id: '4a2788f8-e825-4d36-9894-efd4baf1cfae' }
-]);
-
-
-const isSelectedFilter: boolean = filters.value.some((x) => props.selectedFilterIds.includes(x.category_id))
-
 </script>
 
 <style lang="scss">
-  @use '@/styles/components/Filter.scss';
+@use '@/styles/components/Filter.scss';
 </style>

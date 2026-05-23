@@ -8,10 +8,10 @@
   justify-content: space-between;
   gap: 1rem;
   list-style-type: none;
+  margin: 3rem 0;
 }
 
 .filter {
-  padding: .5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,9 +19,19 @@
   flex-basis: 33.3333%;
   max-width: 33.3333%;
   list-style-type: none;
-}
+  gap: 1rem;
+  border: 1px solid grey;
 
-.filter__button {
-  background: none;
-  width: 100%;
+  button {
+    padding: .5rem;
+    width: 100%;
+  }
+
+  button.active {
+    background: pink;
+  }
+
+  button:not(.active) {
+    background :white;
+  }
 }

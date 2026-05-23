@@ -7,13 +7,14 @@ const props = defineProps<{
   race: RaceSummary
 }>()
 
+// Not considering timezone here
 const raceTimestamp = format(fromUnixTime(props.race.advertised_start.seconds), 'dd-mm-yyyy HH:mm:aa')
 
 </script>
 
 
 <template>
-  <li class="race">
+  <li class="race" data-testid="race-item">
     <span>#{{ race.race_number }} {{ race.meeting_name }}</span>
     <span>Start time: {{ raceTimestamp }}</span>
   </li>

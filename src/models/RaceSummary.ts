@@ -15,6 +15,5 @@ export default interface RaceSummary {
   venue_name: string
   venue_state: string
   venue_country: string
-  // display_start_time?: string
 }
 
